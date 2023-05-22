@@ -4,8 +4,9 @@
 
 // var url = 'https://cors-anywhere.herokuapp.com/http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}';
 
-var url = 'https://cors.bridged.cc/http://www.filltext.com/?rows=32&id=%7Bnumber%7C1000%7D&firstName=%7BfirstName%7D&lastName=%7BlastName%7D&email=%7Bemail%7D&phone=%7Bphone%7C(xxx)xxx-xx-xx%7D&address=%7BaddressObject%7D&description=%7Blorem%7C32%7D';
+// var url = 'https://cors.bridged.cc/http://www.filltext.com/?rows=32&id=%7Bnumber%7C1000%7D&firstName=%7BfirstName%7D&lastName=%7BlastName%7D&email=%7Bemail%7D&phone=%7Bphone%7C(xxx)xxx-xx-xx%7D&address=%7BaddressObject%7D&description=%7Blorem%7C32%7D';
 
+var url = 'https://proxy.cors.sh/http://www.filltext.com/?rows=32&id=%7Bnumber%7C1000%7D&firstName=%7BfirstName%7D&lastName=%7BlastName%7D&email=%7Bemail%7D&phone=%7Bphone%7C(xxx)xxx-xx-xx%7D&address=%7BaddressObject%7D&description=%7Blorem%7C32%7D';  
 
   // prevent cors error due to http request
 
@@ -138,20 +139,24 @@ document.addEventListener('click', function (event) {
 });
 
 // Fetch data from the URL
-fetch(url)
-  .then(response => response.json())
-  .then(data => {
-    const filteredData = data.slice(0, 10).map(({ id, firstName, lastName, email, phone, address, description }) => ({
-      id,
-      firstName,
-      lastName,
-      email,
-      phone,
-      address,
-      description
-    }));
-    createTable(filteredData);
-  })
-  .catch(error => {
-    console.log('Error fetching data:', error);
-  });
+fetch(url, {
+  headers: {
+  'x-cors-api-key': 'temp_34e50c0cc45373b052306b22777635c6'
+}
+})
+.then(response => response.json())
+.then(data => {
+  const filteredData = data.slice(0, 10).map(({ id, firstName, lastName, email, phone, address, description }) => ({
+    id,
+    firstName,
+    lastName,
+    email,
+    phone,
+    address,
+    description
+  }));
+  createTable(filteredData);
+})
+.catch(error => {
+  console.log('Error fetching data:', error);
+});
